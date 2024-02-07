@@ -14,6 +14,8 @@ public class JumpingBall : MonoBehaviour
     public float Speed = 10f;
     private Rigidbody _PlayerRigidbody;
     private Vector3 _StartPos;
+    private bool IsAtCheckpoint = false;
+    public Vector3 _CheckPos;
 
     // Start is called before the first frame update
     void Start()
@@ -36,14 +38,21 @@ public class JumpingBall : MonoBehaviour
         }
         if(transform.position.y < bounds)
         {
-            transform.position = _StartPos;
+            if(IsAtCheckpoint)
+            {
+                transform.position = _CheckPos;
+            }
+            else
+            {
+                transform.position = _StartPos; 
+            }
         }
         
     }
 
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(_horozontalinput, 0.0f, _forwardinput);
+        Vector3 movement = new Vector3(_horozontalinput, 0.0f, _forwardinput); 
         _PlayerRigidbody.AddForce(movement * Speed);
     }
      private void OnCollisionEnter(Collision collision)
@@ -52,13 +61,32 @@ public class JumpingBall : MonoBehaviour
         {
             IsOnGround = true;
         }
+        if (collision.gameObject.CompareTag("DeadZone"))
+        {
+            if(IsAtCheckpoint)
+            {
+                transform.position = _CheckPos;
+            }
+            else
+            {
+                transform.position = _StartPos; 
+            } 
+        }
     } 
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Checkpoint"))
         {
-            _StartPos = other.gameObject.transform.position;
+            IsAtCheckpoint = true;
+            _CheckPos = other.gameObject.transform.position;
+        }
+
+         if(other.gameObject.CompareTag("End"))
+        {
+            IsAtCheckpoint = false;
+            transform.position = _StartPos;
         }
     }
+   
 }
      
