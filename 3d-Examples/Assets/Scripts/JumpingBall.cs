@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class JumpingBall : MonoBehaviour
 {
+    public TextMeshProUGUI scoretext;
     public float JumpForce = 10f;
+    public int score = 0;
     public float bounds = -10;
     public float Gravity = 1f;
     public bool IsOnGround = true;
@@ -23,6 +26,7 @@ public class JumpingBall : MonoBehaviour
     _StartPos = transform.position;
     _PlayerRigidbody = GetComponent<Rigidbody>();
     Physics.gravity *= Gravity;
+    scoretext.text = "Score: " + score.ToString();
     }
 
     // Update is called once per frame
@@ -85,6 +89,13 @@ public class JumpingBall : MonoBehaviour
         {
             IsAtCheckpoint = false;
             transform.position = _StartPos;
+        }
+        if(other.gameObject.CompareTag("Collect"))
+        {
+         
+            score++; 
+              scoretext.text = "Score: " + score.ToString();
+            Destroy(other.gameObject);
         }
     }
    
