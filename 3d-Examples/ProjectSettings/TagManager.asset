@@ -9,6 +9,7 @@ TagManager:
   - End
   - DeadZone
   - Collect
+  - player
   layers:
   - Default
   - TransparentFX
