@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class collectable : MonoBehaviour
 {
-    public float score = 0f;
     
     // Start is called before the first frame update
     void Start()
@@ -23,7 +22,8 @@ public class collectable : MonoBehaviour
     {
         if (other.gameObject.CompareTag("player")) 
         {
-            score++;
+              GameObject.Find("Canvas").GetComponent<Ui>().UpdateCoinCount();
+            Debug.Log("player collected a coin");
             Destroy(gameObject);
         }
     }

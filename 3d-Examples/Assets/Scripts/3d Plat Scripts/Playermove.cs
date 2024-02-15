@@ -9,7 +9,7 @@ public class Playermove : MonoBehaviour
     public float Gravity = 1f;
      public bool IsOnGround = true;
     public float JumpForce = 10f;
-    
+    public int _life = 3;
     private Vector3 startpos;
 
     Rigidbody m_Rigidbody;
@@ -33,8 +33,7 @@ public class Playermove : MonoBehaviour
         m_Movement.Set(horizontal, 0f, vertical);
         m_Movement.Normalize ();
 
-         Vector3 desiredForward = Vector3.RotateTowards (transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
-        m_Rotation = Quaternion.LookRotation (desiredForward);
+         
 
          m_Rigidbody.MovePosition (m_Rigidbody.position + m_Movement * moveSpeed * Time.deltaTime);
         m_Rigidbody.MoveRotation (m_Rotation);
@@ -43,6 +42,9 @@ public class Playermove : MonoBehaviour
         bool hasHorizontalInput = !Mathf.Approximately (horizontal, 0f);
         bool hasVerticalInput = !Mathf.Approximately (vertical, 0f);
         bool isWalking = hasHorizontalInput || hasVerticalInput;
+        
+        Vector3 desiredForward = Vector3.RotateTowards (transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
+        m_Rotation = Quaternion.LookRotation (desiredForward);
 
     }
     void Update()
@@ -53,6 +55,8 @@ public class Playermove : MonoBehaviour
             IsOnGround = false;
             
         }
+        
+        
     }
 
      private void OnTriggerEnter(Collider other)
@@ -66,8 +70,9 @@ public class Playermove : MonoBehaviour
         }
         if (other.gameObject.CompareTag("DeadZone"))
         {
-            transform.position = startpos; 
+            GameObject.Find("Life").GetComponent<Life>().loseLife();
         } 
+        
     }
 }}
 
