@@ -378,6 +378,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c2737034dfee84b4082d47135a0ce43d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c2737034dfee84b4082d47135a0ce43d, type: 3}
       propertyPath: m_Name
       value: Wall
@@ -6151,10 +6155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8ed88fc02a14c0fab9294600b0cf19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  moveSpeed: 10
   turnSpeed: 20
   Gravity: 5
   IsOnGround: 1
+  life: 1
   JumpForce: 15
   _life: 3
 --- !u!1 &1006515952 stripped
@@ -7784,7 +7789,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 758304977002682915, guid: 613ca975a97ab4207919f15d3fc677fb, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6164629822471453942, guid: 613ca975a97ab4207919f15d3fc677fb, type: 3}
       propertyPath: m_Name

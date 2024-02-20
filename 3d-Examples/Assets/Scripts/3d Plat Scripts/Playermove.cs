@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Playermove : MonoBehaviour
@@ -8,12 +9,11 @@ public class Playermove : MonoBehaviour
     public float turnSpeed = 20f;
     public float Gravity = 1f;
      public bool IsOnGround = true;
+     public bool life = true;
     public float JumpForce = 10f;
     public int _life = 3;
     private Vector3 startpos;
-
     Rigidbody m_Rigidbody;
-
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
 
@@ -21,19 +21,20 @@ public class Playermove : MonoBehaviour
     {
             
     Physics.gravity *= Gravity;
-        m_Rigidbody = GetComponent<Rigidbody> ();
+     m_Rigidbody = GetComponent<Rigidbody> ();
         startpos = transform.position;
     }
 
     void FixedUpdate ()
     {
-        float horizontal = Input.GetAxis ("Horizontal");
+         float horizontal = Input.GetAxis ("Horizontal");
         float vertical = Input.GetAxis ("Vertical");
         
         m_Movement.Set(horizontal, 0f, vertical);
         m_Movement.Normalize ();
 
-         
+         Vector3 desiredForward = Vector3.RotateTowards (transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
+        m_Rotation = Quaternion.LookRotation (desiredForward);
 
          m_Rigidbody.MovePosition (m_Rigidbody.position + m_Movement * moveSpeed * Time.deltaTime);
         m_Rigidbody.MoveRotation (m_Rotation);
@@ -42,10 +43,6 @@ public class Playermove : MonoBehaviour
         bool hasHorizontalInput = !Mathf.Approximately (horizontal, 0f);
         bool hasVerticalInput = !Mathf.Approximately (vertical, 0f);
         bool isWalking = hasHorizontalInput || hasVerticalInput;
-        
-        Vector3 desiredForward = Vector3.RotateTowards (transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
-        m_Rotation = Quaternion.LookRotation (desiredForward);
-
     }
     void Update()
     {
@@ -53,28 +50,26 @@ public class Playermove : MonoBehaviour
         {
             m_Rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             IsOnGround = false;
-            
-        }
-        
-        
+        }  
     }
-
-     private void OnTriggerEnter(Collider other)
-     {
-        
-     
+      private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             IsOnGround = true;
         }
-        if (other.gameObject.CompareTag("DeadZone"))
+        if (collision.gameObject.CompareTag("DeadZone"))
         {
-            GameObject.Find("Life").GetComponent<Life>().loseLife();
-        } 
-        
-    }
-}}
+            
+            {
+                transform.position = startpos; 
+            } 
+        }
+    } 
+
+    
+   
+}
 
     
  

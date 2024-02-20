@@ -10,6 +10,7 @@ TagManager:
   - DeadZone
   - Collect
   - player
+  - ground
   layers:
   - Default
   - TransparentFX
