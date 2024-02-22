@@ -9,6 +9,7 @@ public class Playermove : MonoBehaviour
     public float turnSpeed = 20f;
     public float Gravity = 1f;
      public bool IsOnGround = true;
+     public bool IsWalking;
      public bool life = true;
     public float JumpForce = 10f;
     public int _life = 3;
@@ -22,12 +23,12 @@ public class Playermove : MonoBehaviour
             
     Physics.gravity *= Gravity;
      m_Rigidbody = GetComponent<Rigidbody> ();
-        startpos = transform.position;
+    startpos = transform.position;
     }
 
     void FixedUpdate ()
     {
-         float horizontal = Input.GetAxis ("Horizontal");
+        float horizontal = Input.GetAxis ("Horizontal");
         float vertical = Input.GetAxis ("Vertical");
         
         m_Movement.Set(horizontal, 0f, vertical);
@@ -67,8 +68,10 @@ public class Playermove : MonoBehaviour
         }
     } 
 
-    
-   
+    public bool IsPlayerOnGround() 
+    {
+        return IsOnGround;
+    }
 }
 
     
