@@ -11,6 +11,7 @@ TagManager:
   - Collect
   - player
   - ground
+  - floor 1
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class Playermove : MonoBehaviour
     public float JumpForce = 10f;
     public int _life = 3;
     private Vector3 startpos;
+    public Vector3 floorOne;
     Rigidbody m_Rigidbody;
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
@@ -24,6 +25,7 @@ public class Playermove : MonoBehaviour
     Physics.gravity *= Gravity;
      m_Rigidbody = GetComponent<Rigidbody> ();
     startpos = transform.position;
+    floorOne = GameObject.Find("F1s").transform.position;
     }
 
     void FixedUpdate ()
@@ -60,11 +62,12 @@ public class Playermove : MonoBehaviour
             IsOnGround = true;
         }
         if (collision.gameObject.CompareTag("DeadZone"))
+        { 
+            transform.position = startpos;
+        }
+        if (collision.gameObject.CompareTag("floor 1"))
         {
-            
-            {
-                transform.position = startpos; 
-            } 
+            transform.position = floorOne;
         }
     } 
 
