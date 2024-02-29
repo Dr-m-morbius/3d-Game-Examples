@@ -15,6 +15,7 @@ public class Playermove : MonoBehaviour
     public int _life = 3;
     private Vector3 startpos;
     public Vector3 floorOne;
+    public Vector3 floorTwo;
     Rigidbody m_Rigidbody;
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
@@ -26,6 +27,7 @@ public class Playermove : MonoBehaviour
      m_Rigidbody = GetComponent<Rigidbody> ();
     startpos = transform.position;
     floorOne = GameObject.Find("F1s").transform.position;
+    floorTwo = GameObject.Find("F2s").transform.position;
     }
 
     void FixedUpdate ()
@@ -68,6 +70,10 @@ public class Playermove : MonoBehaviour
         if (collision.gameObject.CompareTag("floor 1"))
         {
             transform.position = floorOne;
+        }
+        if (collision.gameObject.CompareTag("floor 2"))
+        {
+            transform.position = floorTwo;
         }
     } 
 
