@@ -12,6 +12,7 @@ TagManager:
   - player
   - ground
   - floor 1
+  - floor 2
   layers:
   - Default
   - TransparentFX
