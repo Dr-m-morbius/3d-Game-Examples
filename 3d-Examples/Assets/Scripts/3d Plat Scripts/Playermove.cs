@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Playermove : MonoBehaviour
 {
@@ -74,6 +75,10 @@ public class Playermove : MonoBehaviour
         if (collision.gameObject.CompareTag("floor 2"))
         {
             transform.position = floorTwo;
+        }
+        if (collision.gameObject.CompareTag("Game End"))
+        {
+            SceneManager.LoadScene (0);
         }
     } 
 

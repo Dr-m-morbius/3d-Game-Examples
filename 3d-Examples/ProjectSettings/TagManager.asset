@@ -13,6 +13,7 @@ TagManager:
   - ground
   - floor 1
   - floor 2
+  - Game End
   layers:
   - Default
   - TransparentFX
